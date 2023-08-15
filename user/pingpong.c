@@ -9,10 +9,8 @@ int main(){
     char buffer[] = {'X'};
     //传输字符数组的长度
     long length = sizeof(buffer);
-    //父进程写，子进程读的pipe
-    pipe(p1);
-    //子进程写，父进程读的pipe
-    pipe(p2);
+    pipe(p1);//父进程写，子进程读的pipe
+    pipe(p2);//子进程写，父进程读的pipe
     //子进程
     if(fork() == 0){
         //关掉不用的p1[1]、p2[0]
