@@ -23,7 +23,6 @@ main(int argc, char* argv[])
     {
         fprintf(2, "error/n");
     }
-    
     int t = atoi(argv[1]);
   12:	6488                	ld	a0,8(s1)
   14:	00000097          	auipc	ra,0x0

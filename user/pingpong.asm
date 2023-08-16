@@ -22,13 +22,11 @@ int main(){
    c:	fcf40c23          	sb	a5,-40(s0)
     //传输字符数组的长度
     long length = sizeof(buffer);
-    //父进程写，子进程读的pipe
-    pipe(p1);
+    pipe(p1); //父进程写，子进程读的pipe
   10:	fe840513          	add	a0,s0,-24
   14:	00000097          	auipc	ra,0x0
   18:	3e4080e7          	jalr	996(ra) # 3f8 <pipe>
-    //子进程写，父进程读的pipe
-    pipe(p2);
+    pipe(p2); //子进程写，父进程读的pipe
   1c:	fe040513          	add	a0,s0,-32
   20:	00000097          	auipc	ra,0x0
   24:	3d8080e7          	jalr	984(ra) # 3f8 <pipe>

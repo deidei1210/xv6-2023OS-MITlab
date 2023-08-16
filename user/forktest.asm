@@ -47,7 +47,7 @@ forktest(void)
 
   print("fork test\n");
   3a:	00000517          	auipc	a0,0x0
-  3e:	3f650513          	add	a0,a0,1014 # 430 <uptime+0xe>
+  3e:	40650513          	add	a0,a0,1030 # 440 <sysinfo+0xe>
   42:	00000097          	auipc	ra,0x0
   46:	fbe080e7          	jalr	-66(ra) # 0 <print>
 
@@ -71,7 +71,7 @@ forktest(void)
   if(n == N){
     print("fork claimed to work N times!\n");
   64:	00000517          	auipc	a0,0x0
-  68:	3dc50513          	add	a0,a0,988 # 440 <uptime+0x1e>
+  68:	3ec50513          	add	a0,a0,1004 # 450 <sysinfo+0x1e>
   6c:	00000097          	auipc	ra,0x0
   70:	f94080e7          	jalr	-108(ra) # 0 <print>
     exit(1);
@@ -113,7 +113,7 @@ forktest(void)
 
   print("fork test OK\n");
   b4:	00000517          	auipc	a0,0x0
-  b8:	3dc50513          	add	a0,a0,988 # 490 <uptime+0x6e>
+  b8:	3ec50513          	add	a0,a0,1004 # 4a0 <sysinfo+0x6e>
   bc:	00000097          	auipc	ra,0x0
   c0:	f44080e7          	jalr	-188(ra) # 0 <print>
 }
@@ -125,7 +125,7 @@ forktest(void)
   ce:	8082                	ret
       print("wait stopped early\n");
   d0:	00000517          	auipc	a0,0x0
-  d4:	39050513          	add	a0,a0,912 # 460 <uptime+0x3e>
+  d4:	3a050513          	add	a0,a0,928 # 470 <sysinfo+0x3e>
   d8:	00000097          	auipc	ra,0x0
   dc:	f28080e7          	jalr	-216(ra) # 0 <print>
       exit(1);
@@ -134,7 +134,7 @@ forktest(void)
   e6:	2a8080e7          	jalr	680(ra) # 38a <exit>
     print("wait got too many\n");
   ea:	00000517          	auipc	a0,0x0
-  ee:	38e50513          	add	a0,a0,910 # 478 <uptime+0x56>
+  ee:	39e50513          	add	a0,a0,926 # 488 <sysinfo+0x56>
   f2:	00000097          	auipc	ra,0x0
   f6:	f0e080e7          	jalr	-242(ra) # 0 <print>
     exit(1);
@@ -215,7 +215,7 @@ strcmp(const char *p, const char *q)
 
 0000000000000166 <strlen>:
 
-unsigned int
+uint
 strlen(const char *s)
 {
  166:	1141                	add	sp,sp,-16
@@ -247,7 +247,7 @@ strlen(const char *s)
 0000000000000190 <memset>:
 
 void*
-memset(void *dst, int c, unsigned int n)
+memset(void *dst, int c, uint n)
 {
  190:	1141                	add	sp,sp,-16
  192:	e422                	sd	s0,8(sp)
@@ -521,7 +521,7 @@ memmove(void *vdst, const void *vsrc, int n)
 0000000000000330 <memcmp>:
 
 int
-memcmp(const void *s1, const void *s2, unsigned int n)
+memcmp(const void *s1, const void *s2, uint n)
 {
  330:	1141                	add	sp,sp,-16
  332:	e422                	sd	s0,8(sp)
@@ -563,7 +563,7 @@ memcmp(const void *s1, const void *s2, unsigned int n)
 000000000000036a <memcpy>:
 
 void *
-memcpy(void *dst, const void *src, unsigned int n)
+memcpy(void *dst, const void *src, uint n)
 {
  36a:	1141                	add	sp,sp,-16
  36c:	e406                	sd	ra,8(sp)
@@ -789,3 +789,23 @@ uptime:
  424:	00000073          	ecall
  ret
  428:	8082                	ret
+
+000000000000042a <trace>:
+.global trace
+trace:
+ li a7, SYS_trace
+ 42a:	48d9                	li	a7,22
+ ecall
+ 42c:	00000073          	ecall
+ ret
+ 430:	8082                	ret
+
+0000000000000432 <sysinfo>:
+.global sysinfo
+sysinfo:
+ li a7, SYS_sysinfo
+ 432:	48dd                	li	a7,23
+ ecall
+ 434:	00000073          	ecall
+ ret
+ 438:	8082                	ret

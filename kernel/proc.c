@@ -288,17 +288,11 @@ fork(void)
     if(p->ofile[i])
       np->ofile[i] = filedup(p->ofile[i]);
   np->cwd = idup(p->cwd);
-
   safestrcpy(np->name, p->name, sizeof(p->name));
-  
   np->mask=p->mask;//Child's trace_mask=Parent's trace_mask
-
   pid = np->pid;
-
   np->state = RUNNABLE;
-
   release(&np->lock);
-
   return pid;
 }
 
