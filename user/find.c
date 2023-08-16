@@ -4,13 +4,10 @@
 #include "kernel/fs.h"
 #include "user/user.h"
 
-/*
-	将路径格式化为文件名
-*/
+/*将路径格式化为文件名*/
 char* fmt_name(char *path){
   static char buf[DIRSIZ+1];
   char *p;
-
   // Find first character after last slash.
   for(p=path+strlen(path); p >= path && *p != '/'; p--);
   p++;
